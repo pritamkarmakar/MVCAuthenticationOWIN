@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<script type="text/javascript">
+    function getValues() {
+        $.get("/ApiConnect/GetValues", function (data) {
+            $('#response-api').show();
+            $('[id$=valuesfromwebapi]').append(data + "<br/>");
+        });
+    };
+
+</script>
+
+<div class="jumbotron">
+    <div class="container">
+        <h2> - MVC 5 Authentication using OWIN</h2>
+        <h2> - Access Web API 2 [Authorize] controller action </h2>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <br />
+            <p><a href="javascript:getValues()" class="btn btn-primary btn-lg">Call Web API</a></p>
+            <div class="well well-lg" style="display: none;" id="response-api">
+                <label id="valuesfromwebapi" style="font-size: 13px; font-style: italic;"></label>
+            </div>
+        }
+        else
+        {
+            <br/>
+            <p><a href="/Account/Login" class="btn btn-primary btn-lg">Log In to make Web API call</a></p>
+        }
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">What we are trying to achieve</h3>
+    </div>
+    <div class="panel-body">
+        We have two separate projects of type 'Web API 2' and 'MVC 5'. We want to use OWIN authentication in the MVC 5 application. And then want to call one resticted Web API controller Action that has [Authorize] attribute
+    </div>
+</div>
+
+<div class="well well-lg"> I got the OWIN authentication idea from Khalid's <a href="http://www.khalidabuhakmeh.com/asp-net-mvc-5-authentication-breakdown-part-deux#disqus_thread">blog</a>.
+        I also read the whole Web API guide from <a href="http://www.asp.net/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api">here</a></div>
+
